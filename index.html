@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1,user-scalable=no">
+        <title>Habit Tracker</title>
+    <meta name="theme-color" content="#3498db">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components/habit-form.css">
+    <link rel="stylesheet" href="css/components/habit-card.css">
+    <link rel="stylesheet" href="css/components/accordion.css">
+    <link rel="stylesheet" href="css/components/number_input.css">
+</head>
+<body>
+    <div class="container">
+        <h1>От трэкай свою <br>жизнь полностью</h1>
+        <div class="habits-container" id="habitsList">
+            <!-- Habits will be displayed here -->
+        </div>
+        
+        <div class="habit-form-container" id="habitForm">
+            <!-- Form will be created dynamically -->
+        </div>
+        <div class="accordion">
+            <button class="accordion-toggle" >Настройки</button>
+            <div class="accordion-content" style="display: none;">
+                <input type="file" id="importFile" accept=".json" />
+                <button onclick="importHabitsFromJson()">Импортировать привычки</button>
+
+                <button class="btn" id="download-button" onclick="downloadHabitsAsJson();">Скачать данные</button><br>
+                <button class="btn-delete" onclick="storageManager.clearStorage();renderHabits();">Удалить все данные</button>
+            </div>
+        </div>
+        <div class="accordion">
+            <button class="accordion-toggle" >Редактировать привычки</button>
+            <div class="accordion-content" style="display: none;">
+                <div class="habit-edit">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/components/accordion.js"></script>
+    <script src="js/components/number_input.js"></script>
+    <script src="js/components/storage_manager.js"></script>
+    <script src="js/components/render.js"></script>
+    <script src="js/components/habit.js"></script>
+    <script src="js/components/habit_form.js"></script>
+    <script src="js/components/main.js"></script>
+    <script src="js/components/habits_edit.js"></script>
+    <script>
+        
+renderEditHabitList();
+    </script>
+
+</body>
+</html> 
