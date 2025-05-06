@@ -1,8 +1,16 @@
+console.log(localStorage.getItem("habit_tracker"));
+if ("NDEFWriter" in window) {
+    console.log("✅ Web NFC поддерживается!");
+  } else {
+    console.log("❌ Web NFC не поддерживается в этом браузере.");
+  }
+  
 console.log(Date.now());
 storageManager = new StorageManager();
 let data = storageManager.loadHabits().map(obj => new Habit(false, obj)); // 🛠️ фикс
 console.log(data);
 render = new Render();
+
 function renderHabits() {
     let html = document.querySelector('.habits-container');
     html.innerHTML = '';
@@ -14,6 +22,7 @@ function renderHabits() {
         }
     }
 }
+
 renderHabits();
 let form = new CreateHabitForm();
 let habit_form = '#habitForm';

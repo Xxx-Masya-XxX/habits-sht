@@ -16,6 +16,10 @@ const urlsToCache = [
     '/css/components/habit-card.css',
     '/css/components/accordion.css',
     '/css/components/number_input.css',
+    '/css/components/menu.css',
+    '/icons/icon-64x64.png',
+    '/icons/icon-192x192.png',
+    '/icons/icon-512x512.png',
 ];
 
 self.addEventListener('install', event => {

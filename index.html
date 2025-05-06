@@ -3,44 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1,user-scalable=no">
-        <title>Habit Tracker</title>
+    <title>Habit Tracker</title>
+    <link rel="icon" type="image/png" href="icons/icon-64x64.png">
+
     <meta name="theme-color" content="#3498db">
     <link rel="manifest" href="manifest.json">
+    <!-- стили -->
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/components/habit-form.css">
-    <link rel="stylesheet" href="css/components/habit-card.css">
-    <link rel="stylesheet" href="css/components/accordion.css">
-    <link rel="stylesheet" href="css/components/number_input.css">
+
+    <!-- шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1>От трэкай свою <br>жизнь полностью</h1>
-        <div class="habits-container" id="habitsList">
-            <!-- Habits will be displayed here -->
-        </div>
-        
-        <div class="habit-form-container" id="habitForm">
-            <!-- Form will be created dynamically -->
-        </div>
-        <div class="accordion">
-            <button class="accordion-toggle" >Настройки</button>
-            <div class="accordion-content" style="display: none;">
-                <input type="file" id="importFile" accept=".json" />
-                <button onclick="importHabitsFromJson()">Импортировать привычки</button>
-
-                <button class="btn" id="download-button" onclick="downloadHabitsAsJson();">Скачать данные</button><br>
-                <button class="btn-delete" onclick="storageManager.clearStorage();renderHabits();">Удалить все данные</button>
+    
+    <main>
+        <header>
+            <div class="container">
+                <p style="text-align: center; font-size: 20px;">От трэкай свою жизнь полностью</p>
             </div>
-        </div>
-        <div class="accordion">
-            <button class="accordion-toggle" >Редактировать привычки</button>
-            <div class="accordion-content" style="display: none;">
-                <div class="habit-edit">
-                    
+        </header>
+        <div class="page" id="manager-habits" style="display: none;">
+            <div class="content">
+                <!-- <button class="btn" onclick="openPage('main')">на главную</button>  -->
+                <button class="btn " onclick="openPage('menu')">Меню</button>
+                <h2>Менеджер привычек</h2>
+                <div class="block">
+                    <h3>Удалить привычку</h3>
+                    <div class="habit-edit">
+                        
+                    </div>
+                </div>
+                <div class="block">
+                    <div class="block-nfc">
+                        <h2>Сгенерировать ссылку</h2>
+                      
+                        <label for="linkType">Тип ссылки:</label>
+                        <select id="linkType">
+                          <option value="profile">Профиль</option>
+                          <option value="action">Действие</option>
+                        </select><br>
+                      
+                        <label for="linkValue">Значение:</label>
+                        <input type="text" id="linkValue" placeholder="Введите значение">
+                      
+                        <div id="nfc-support" class="hidden">
+                          <button id="writeNFC">Запрограммировать NFC</button>
+                        </div>
+                      
+                        <div id="nfc-unsupported" class="hidden">
+                          <label for="generatedLink">Ссылка:</label>
+                          <input type="text" id="generatedLink" readonly>
+                          <button id="copyLink">Скопировать ссылку</button>
+                        </div>
+                      </div>
+                </div>
+                <div class="block">
+                    <h3>Ахтунг! Это действие необратимо!</h3>
+                    <button class="btn btn-delete" onclick="storageManager.clearStorage();renderHabits();">Удалить все данные</button>
                 </div>
             </div>
         </div>
-    </div>
+
+        <div class="page" id="about-developer" style="display: none;">
+            <div class="content">
+                <button class="btn " onclick="openPage('menu')">Меню</button>
+                <h2>О разработчике</h2>
+                <p>Бля что то на крутом и пиздатом</p>
+                <img src="icons/icon-512x512.png" alt="developer">
+                <div class="block">
+                    <h2>Ссылки на мои профили</h2>
+                    <a href="https://github.com/Xxx-Masya-XxX/habits-sht">GitHub</a><br>
+                    <a href="https://t.me/sh3m3t0v">Telegram</a>
+                </div>
+                <div class="block">
+                    <h2>Использованные материалы</h2>
+                    <a href="https://ru.pinterest.com/pin/68748490278/">иконка</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="settings" style="display: none;">
+            <div class="content">
+                <button class="btn " onclick="openPage('menu')">Меню</button>
+                <h2>Настройки</h2>
+                <div class="block">
+                    <h3>Импорт привычек</h3>
+                    <input class="btn" type="file" id="importFile" accept=".json" />
+                    <button class="btn" onclick="importHabitsFromJson()">Импортировать привычки</button>
+                </div>
+                <div class="block">
+                    <h3>Экспорт привычек</h3>
+                    <button class="btn" id="download-button" onclick="downloadHabitsAsJson();">Скачать данные</button><br>
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="menu" style="display: none;">
+            <div class="content">
+                <button class="btn " onclick="openPage('main')">Главную</button>
+                <button class="btn " onclick="openPage('manager-habits')">Менеджер привычек</button>
+                <button class="btn " onclick="openPage('settings')">Настройки</button>
+                <button class="btn " onclick="openPage('about-developer')">О разработчике</button>
+            </div>
+        </div>
+
+        <div class="page" id="main" style="display: block;">
+            <div class="content">
+                <button class="btn " onclick="openPage('menu')">Меню</button>
+                
+                <div class="habits-container" id="habitsList">
+                    <!-- Habits will be displayed here -->
+                </div>
+            
+                <div class="habit-form-container" id="habitForm">
+                    <!-- Form will be created dynamically -->
+                </div>
+            </div>
+
+        </div>
+        <footer style="margin-top: 30px; background-color: black; color: white; padding: 20px;">
+            <p>так как я не особо шарю за кухню в сфере web-разработки, то возможны баги и ошибки!</p>
+            <p>про ваши данные:</p>
+            <ul style="margin-left: 20px;">
+                <li>Данные хранятся локально у вас на устройстве</li>
+                <li>я не знаю как устроен ваш браузер, поэтому не могу гарантировать что данные не пропадут в один прекрасный день</li>
+                <ul style="margin-left: 20px;">
+                    <li>имеется ввиду что Браузер переодически чистит кэш</li>
+                </ul>
+                <li>Данные можно экспортировать в настройках (Меню > Настройки > Экспорт привычек) </li>
+            </ul>
+        </footer>
+    </main>
+
     
     <script src="js/components/accordion.js"></script>
     <script src="js/components/number_input.js"></script>
@@ -50,10 +146,15 @@
     <script src="js/components/habit_form.js"></script>
     <script src="js/components/main.js"></script>
     <script src="js/components/habits_edit.js"></script>
+    <script src="js/components/menu.js"></script>
+    <script src="js/NFC.js"></script>
     <script>
-        
-renderEditHabitList();
+
+        document.addEventListener("DOMContentLoaded", () => {
+            renderEditHabitList(); // ✅ теперь можно вызвать async-функцию
+        });
     </script>
+    
 
 </body>
 </html> 

@@ -7,6 +7,7 @@ class Habit {
             this.dailyGoal = data[2];
             this.total = 0;
             this.logs = [];
+            this.category = 'main';
             this.daily = 0; // изначально 0
         } else {
             this.id = data.id;
@@ -15,7 +16,8 @@ class Habit {
             this.dailyGoal = data.dailyGoal;
             this.total = data.total;
             this.logs = data.logs ?? [];
-    
+            this.category = data.category ?? 'main';
+
             const today = new Date().toLocaleDateString();
             this.daily = this.logs
                 .filter(log => log.date === today)
@@ -37,14 +39,15 @@ class Habit {
             date: new Date().toLocaleDateString(),
             value: amount
         });
-        console.log('Лог добавлен:', this.logs);
 
         // Обновляем привычку в localStorage после добавления лога
         storageManager.updateHabit(this);
         input.value = 0;
         renderHabits();
     }
-
+    static fromJSON(obj) {
+        return new Habit(false, obj);
+    }
     toJSON() {
         return {
             id: this.id,
@@ -52,8 +55,13 @@ class Habit {
             unit: this.unit,
             dailyGoal: this.dailyGoal,
             total: this.total,
-            logs: this.logs
+            logs: this.logs,
+            category: this.category
         };
+    }
+    changeCategory(newCategory) {
+        this.category = newCategory;
+        storageManager.updateHabit(this);
     }
     
 

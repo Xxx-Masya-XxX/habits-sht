@@ -10,10 +10,11 @@ function renderEditHabitList() {
 
         const label = document.createElement('label');
         label.textContent = habit.name;
-
+        label.classList.add('habit-edit-label');
         const deleteBtn = document.createElement('button');
         deleteBtn.textContent = 'Удалить';
         deleteBtn.classList.add('btn-delete');
+        deleteBtn.classList.add('btn');
 
         deleteBtn.addEventListener('click', () => {
             const confirmed = confirm(`Удалить привычку "${habit.name}"?`);
